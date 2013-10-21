@@ -1,7 +1,7 @@
 #ifndef FUCKER_H
 #define FUCKER_H
 
-#define N_max 10000
+#define N_max 5000
 
 class Fucker
 {
@@ -33,12 +33,15 @@ public:
     double ddg_0(double C);
     double sum_N();
 
+    double evolute();
+
 
     double k;
-    double f[N_max][2];
+    double f[N_max][2];    
+    double f_temp[N_max][2];
     double dt;
     double t;
-    double K, C, C0;
+    double K, C0;
     double T;
     double alpha;
     double C1;
@@ -47,7 +50,9 @@ public:
     double n;
     double dg1;
     double N_tot;
-    double N0;
+    int N0;
+
+    double W;
 };
 
 #endif // FUCKER_H

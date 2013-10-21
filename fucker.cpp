@@ -7,42 +7,38 @@ Fucker::Fucker()
 
 void Fucker::init()
 {
-//    C = 0.5;
-//    K = 1e-13;
-//    T = 300;
-//    k = 1.38e-23;
-//    g1 = 3.1e-21;
-//    alpha = 1.0;
+    k = 1.38e-23;
+    dt = 1e12;
+    t = 0;
+    K = 1e-13;
+    C0 = 0.3;
+    T = 550;
+    alpha = 2.4;
+    C1 = 0.5;
+    pi = 3.14;
+    sigma = 0.05;
+    n = 7e28;
+    dg1 = -3e-20;
+    N_tot = 1e22;
+    N0 = 7;
+    W = 1.4e21;
 
-//    dt = 1e-5;
-//    t = 0;
-
-     k = 1.38e-23;
-     dt = 1e-5;
-     t = 0;
-     K = 1e-13;
-     C0 = 0.3;
-     T = 550;
-     alpha = 2.4;
-     C1 = 0.5;
-     pi = 3.14;
-     sigma = 0.05;
-     n = 7e28;
-     dg1 = -3e-20;
-     N_tot = 1e22;
-     N0 = 7;
-
-    for (int i = 0; i < 1000; i++) {
+    for (int i = N0 + 1; i < N_max; i++) {
         f[i][0] = i;
         f[i][1] = 0;
-    }
+    }        
 
-    f[0][1] = 1.0;
+    f[N0][1] = W;
+
+    for (int i = N0; i < N_max; i++) {
+        f_temp[i][0] = f[i][0];
+        f_temp[i][1] = f[i][1];
+    }
 }
 
 double Fucker::f_incr(int NB, double C)
 {
-    f[NB-1][1]*nu_p(NB-1, C) + f[NB + 1][1]*nu_m(NB+1, C) - f[NB][1]*(nu_p(NB, C) + nu_m(NB, C));
+    return f[NB-1][1]*nu_p(NB-1, C) + f[NB + 1][1]*nu_m(NB+1, C) - f[NB][1]*(nu_p(NB, C) + nu_m(NB, C));
 }
 
 double Fucker::nu_p(int NB, double C)
@@ -89,4 +85,23 @@ double Fucker::sum_N()
 double Fucker::ddg_0(double C)
 {
     return k*T*(qLn(C) - qLn(1.0 - C));
+}
+
+double Fucker::evolute()
+{
+    double C;
+    C = C_func();
+
+    double sum = 0;
+
+    for (int NB = N0 + 1; NB < N_max; NB++) {
+        f_temp[NB][1] += f_incr(NB, C)*dt;
+        sum += f_temp[NB][1];
+    }
+
+    f[N0][1] = W - sum;
+
+    for (int i = N0; i < N_max; i++) {
+        f[i][1] = f_temp[i][1];
+    }
 }
