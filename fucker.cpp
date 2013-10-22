@@ -8,7 +8,7 @@ Fucker::Fucker()
 void Fucker::init()
 {
     k = 1.38e-23;
-    dt = 1e12;
+    dt = 1e11;
     t = 0;
     K = 1e-13;
     C0 = 0.3;
@@ -99,7 +99,7 @@ double Fucker::evolute()
         sum += f_temp[NB][1];
     }
 
-    f[N0][1] = W - sum;
+    f_temp[N0][1] = W - sum;
 
     for (int i = N0; i < N_max; i++) {
         f[i][1] = f_temp[i][1];

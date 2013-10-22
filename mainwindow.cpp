@@ -5,15 +5,34 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
-    curve = new QwtPlotCurve;
-    curve->attach(ui->qwtPlot);
-
-
     QPen pen;
-    pen.setWidth(2);
+    ui->setupUi(this);
+
+    for (int i = 0; i < 5; i++) {
+        curve[i] = new QwtPlotCurve;
+        curve[i]->attach(ui->qwtPlot);
+
+        // curve->setStyle(QwtPlotCurve::Dots);
+
+        pen.setWidth(2);
+        pen.setColor(QColor(0, 10, 200));
+        curve[i]->setPen(pen);
+    }
+
     pen.setColor(QColor(0, 10, 200));
-    curve->setPen(pen);
+    curve[0]->setPen(pen);
+
+    pen.setColor(QColor(200, 20, 0));
+    curve[1]->setPen(pen);
+
+    pen.setColor(QColor(30, 100, 0));
+    curve[2]->setPen(pen);
+
+    pen.setColor(QColor(0, 0, 0));
+    curve[3]->setPen(pen);
+
+    pen.setColor(QColor(100, 100, 0));
+    curve[4]->setPen(pen);
 
     fuck = new Fucker;
 }
@@ -26,29 +45,37 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     fuck->init();
-    vis();
+    vis(0);
+    int gr = 1;
 
+    // while (gr < 5) {
     while (true) {
         int count = 0;
 
-        while (count < 100) {
-            fuck->evolute();
+        while (count < 10) {
+
             QApplication::processEvents();
             count++;
+           fuck->evolute();
         }
-        vis();
-        QApplication::processEvents();
+        vis(0);
+
+        //        if (fuck->f[int(gr)*1000][1] > 2.0) {
+        //            vis(gr);
+        //            gr++;
+        //        }
+        //QApplication::processEvents();
     }
 
 }
 
-void MainWindow::vis()
+void MainWindow::vis(int gr)
 {
-    vector.clear();
+    vector[gr].clear();
 
     for (int i = fuck->N0; i < N_max; i++)
-        vector.append(QPointF(fuck->f[i][0], fuck->f[i][1]));
+        vector[gr].append(QPointF(fuck->f[i][0], fuck->f[i][1]));
 
-    curve->setSamples(vector);
+    curve[gr]->setSamples(vector[0]);
     ui->qwtPlot->replot();
 }

@@ -19,10 +19,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    QwtPlotCurve *curve;
-    QVector<QPointF> vector;
+    QwtPlotCurve *curve[5];
+    QVector<QPointF> vector[5];
     Fucker *fuck;
-    void vis();
+    void vis(int gr);
 
 private slots:
     void on_pushButton_clicked();
