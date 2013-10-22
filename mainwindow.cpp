@@ -48,40 +48,29 @@ void MainWindow::on_pushButton_clicked()
     vis(0);
     int gr = 1;
 
-//    while (gr < 5) {
-//        //     while (true) {
+    while (gr < 5) {
+        fock->evolute();
+        if (fock->f[gr*1000][1] > 10) {
+            vis(gr);
+            gr++;
+        }
+    }
+
+
+//    while (true) {
 //        int count = 0;
 
-//        // while (count < 10) {
+//        while (count < 100) {
 
-//        QApplication::processEvents();
-//        count++;
-//        fock->evolute();
-//        QApplication::processEvents();
-//        //  }
-
-//        if (fock->f[gr*1000][1] > 10) {
-//            vis(gr);
-//            gr++;
+//            QApplication::processEvents();
+//            count++;
+//            fock->evolute();
+//            QApplication::processEvents();
 //        }
+//        vis(0);
+
 
 //    }
-
-
-    while (true) {
-        int count = 0;
-
-        while (count < 100) {
-
-            QApplication::processEvents();
-            count++;
-            fock->evolute();
-            QApplication::processEvents();
-        }
-        vis(0);
-
-
-    }
 
 }
 
@@ -92,6 +81,6 @@ void MainWindow::vis(int gr)
     for (int i = fock->N0; i < N_max; i++)
         vector[gr].append(QPointF(fock->f[i][0], fock->f[i][1]));
 
-    curve[gr]->setSamples(vector[0]);
+    curve[gr]->setSamples(vector[gr]);
     ui->qwtPlot->replot();
 }

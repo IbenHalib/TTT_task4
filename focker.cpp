@@ -12,7 +12,7 @@ void Focker::init()
     t = 0;
     K = 1e-13;
     C0 = 0.3;
-    T = 11550;
+    T = 550;
     alpha = 2.4;
     C1 = 0.5;
     pi = 3.14;
