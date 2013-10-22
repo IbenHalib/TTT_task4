@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     pen.setColor(QColor(100, 100, 0));
     curve[4]->setPen(pen);
 
-    fuck = new Fucker;
+    fock = new Focker;
 }
 
 MainWindow::~MainWindow()
@@ -44,27 +44,43 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    fuck->init();
+    fock->init();
     vis(0);
     int gr = 1;
 
-    // while (gr < 5) {
+//    while (gr < 5) {
+//        //     while (true) {
+//        int count = 0;
+
+//        // while (count < 10) {
+
+//        QApplication::processEvents();
+//        count++;
+//        fock->evolute();
+//        QApplication::processEvents();
+//        //  }
+
+//        if (fock->f[gr*1000][1] > 10) {
+//            vis(gr);
+//            gr++;
+//        }
+
+//    }
+
+
     while (true) {
         int count = 0;
 
-        while (count < 10) {
+        while (count < 100) {
 
             QApplication::processEvents();
             count++;
-           fuck->evolute();
+            fock->evolute();
+            QApplication::processEvents();
         }
         vis(0);
 
-        //        if (fuck->f[int(gr)*1000][1] > 2.0) {
-        //            vis(gr);
-        //            gr++;
-        //        }
-        //QApplication::processEvents();
+
     }
 
 }
@@ -73,8 +89,8 @@ void MainWindow::vis(int gr)
 {
     vector[gr].clear();
 
-    for (int i = fuck->N0; i < N_max; i++)
-        vector[gr].append(QPointF(fuck->f[i][0], fuck->f[i][1]));
+    for (int i = fock->N0; i < N_max; i++)
+        vector[gr].append(QPointF(fock->f[i][0], fock->f[i][1]));
 
     curve[gr]->setSamples(vector[0]);
     ui->qwtPlot->replot();

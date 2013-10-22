@@ -3,31 +3,25 @@
 
 #define N_max 5000
 
-class Fucker
+class Focker
 {
 public:
-    Fucker();
+    Focker();
     void init();
 
-    //fucking equation
+    //Focker equation
     double f_incr(int NB, double C);
 
-    //deserter (traitor)
     double nu_p(int NB, double C);
 
-    //Behold, fucking pisser scared
     double nu_m(int NB, double C);
 
-    //Jewish manners
     double dg(int NB, double C);
 
-    //Some body nothing to deal
     double dg_n(double C);
 
-    //More equations - better physics
     double dg0(double C);
 
-    //Look previous
     double C_func();
 
     double ddg_0(double C);
@@ -55,4 +49,4 @@ public:
     double W;
 };
 
-#endif // FUCKER_H
+#endif

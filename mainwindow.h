@@ -5,7 +5,7 @@
 #include <qwt_plot_curve.h>
 #include <QVector>
 #include <QPointF>
-#include "fucker.h"
+#include "focker.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,7 +21,7 @@ public:
 
     QwtPlotCurve *curve[5];
     QVector<QPointF> vector[5];
-    Fucker *fuck;
+    Focker *fock;
     void vis(int gr);
 
 private slots:

@@ -14,10 +14,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    fucker.cpp
+    focker.cpp
 
 HEADERS  += mainwindow.h \
-    fucker.h
+    focker.h
 
 FORMS    += mainwindow.ui
 include(qwt.pri)
