@@ -24,21 +24,19 @@ void Focker::init()
     W = 1.4e21;
 
     for (int i = N0 + 1; i < N_max; i++) {
-        f[i][0] = i;
-        f[i][1] = 0;
+        f[i] = 0;
     }        
 
-    f[N0][1] = W;
+    f[N0] = W;
 
     for (int i = N0; i < N_max; i++) {
-        f_temp[i][0] = f[i][0];
-        f_temp[i][1] = f[i][1];
+        f_temp[i]= f[i];
     }
 }
 
 double Focker::f_incr(int NB, double C)
 {
-    return f[NB-1][1]*nu_p(NB-1, C) + f[NB + 1][1]*nu_m(NB+1, C) - f[NB][1]*(nu_p(NB, C) + nu_m(NB, C));
+    return f[NB-1]*nu_p(NB-1, C) + f[NB + 1]*nu_m(NB+1, C) - f[NB]*(nu_p(NB, C) + nu_m(NB, C));
 }
 
 double Focker::nu_p(int NB, double C)
@@ -76,7 +74,7 @@ double Focker::sum_N()
 {
     double sum = 0;
     for (int NB = N0; NB < N_max; NB++) {
-        sum += f[NB][1]*double(NB);
+        sum += f[NB]*double(NB);
     }
 
     return sum;
@@ -95,13 +93,13 @@ double Focker::evolute()
     double sum = 0;
 
     for (int NB = N0 + 1; NB < N_max; NB++) {
-        f_temp[NB][1] += f_incr(NB, C)*dt;
-        sum += f_temp[NB][1];
+        f_temp[NB] += f_incr(NB, C)*dt;
+        sum += f_temp[NB];
     }
 
-    f_temp[N0][1] = W - sum;
+    f_temp[N0] = W - sum;
 
     for (int i = N0; i < N_max; i++) {
-        f[i][1] = f_temp[i][1];
+        f[i] = f_temp[i];
     }
 }

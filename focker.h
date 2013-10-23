@@ -31,8 +31,8 @@ public:
 
 
     double k;
-    double f[N_max][2];    
-    double f_temp[N_max][2];
+    double f[N_max];
+    double f_temp[N_max];
     double dt;
     double t;
     double K, C0;
